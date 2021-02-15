@@ -3,47 +3,53 @@ import styles from '../styles/Home.module.css'
 import Header from '../components/Header';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import querystring from 'querystring';
 
 export default function Home() {
 
-  const API_BASE_URL = "https://api.spacexdata.com/v3/launches?limit=100";
+  const API_BASE_URL = "https://api.spaceXdata.com/v3/launches?limit=100";
   
   const [allLaunches,setAllLaunches] = useState([]);
-  const [year,setYear] = useState(0);
-  const [launchSuccess,setLaunchSuccess] = useState(false);
-  const [landSuccess,setLandSuccess] = useState(false);
+  const [launch_year,setYear] = useState(0);
+  const [launch_success,setLaunchSuccess] = useState(undefined);
+  const [land_success,setLandSuccess] = useState(undefined);
   const [allLaunchesDataList,setAllLaunchesDataList] = useState([]);
   
-  async function fetchLaunches()
+  async function fetchLaunches(API_BASE_URL_param)
   {
-    const response = await fetch(API_BASE_URL);
+    console.log("--fetchLaunches");
+
+    const response = await fetch(API_BASE_URL_param);
     const allLaunchesData = await response.json();
-    await setAllLaunches(allLaunchesData);
-    setAllLaunchesDataList(allLaunchesData);
+     setAllLaunches(allLaunchesData);
+    // setAllLaunchesDataList(allLaunchesData);
   }
 
   useEffect(() => {
-    fetchLaunches();
+    console.log("--useEffect");
+    fetchLaunches(API_BASE_URL);
   },[]);
 
    function filterYear(value)
   {
      setYear(value);
-    let launchedOnParticularYear = [];
-    allLaunchesDataList.map(launch => {
-      if(launch.launch_year == value)
-      {
-        launchedOnParticularYear.push(launch);
-      }      
-    })
-    setAllLaunches(launchedOnParticularYear);
+    // let launchedOnParticularYear = [];
+    // allLaunchesDataList.map(launch => {
+    //   if(launch.launch_year == value)
+    //   {
+    //     launchedOnParticularYear.push(launch);
+    //   }      
+    // })
+    // setAllLaunches(launchedOnParticularYear);
+
   }
   
-  function setFilters(filter,value)
+  async function setFilters(filter,value)
   {
     if(filter == "year")
     {
-      filterYear(value);
+      launch_year == value ?  setYear(undefined) :  setYear(value);
+      await fetchLaunches(API_BASE_URL +'&'+querystring.stringify({land_success,launch_success,launch_year}));
     }
   }
   
@@ -58,7 +64,7 @@ export default function Home() {
       <div>
         <div>Filters</div>
         <div><input type="text" name="getYear" id="getYear" className={styles.getYear}/></div>
-        <div><button onClick={(e)=>setFilters("year",e.target.value)} value="2016">2016</button></div>
+        <div><button onClick={(e)=>setFilters("year",e.target.value)} value="2006">2006</button></div>
       </div>
       <div className={styles.cards}>
        {allLaunches.map((launch)=> 
