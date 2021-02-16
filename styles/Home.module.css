@@ -37,7 +37,7 @@ font-weight: 700;
     /* justify-content: space-evenly; */
     width: 100%;
 }
-.filters{
+/* .filters{
   min-width: 19rem;
   background-color: white;
   margin: 0rem 1rem;
@@ -86,7 +86,7 @@ font-weight: 700;
 {
   background-color: #9ae39a;
 
-}
+} */
 
 /* .cards p{
   display:inline-block;
@@ -107,5 +107,10 @@ font-weight: 700;
 
 @media only screen and (max-width: 700px) {
     .wholePageLayout{ flex-direction: column;margin:auto}
-    .cards {flex-direction: column;}
+    .cards {flex-direction: column;margin: auto;}
 }
+
+/* @media only screen and (min-width:700) and (max-width: 1024px) {
+  .wholePageLayout{ flex-direction: column;margin:auto}
+    .cards {flex-direction: column;margin: auto;}
+} */

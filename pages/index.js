@@ -48,7 +48,7 @@ export default function Home() {
       </Head>
       <Header />
       <div className={styles.wholePageLayout}>
-      <FilterDetails setFilters={setFilters}/>
+      <FilterDetails launch_success={launch_success} land_success={land_success} launch_year = {launch_year} setFilters={setFilters}/>
   
     <div className={styles.cards}>
      {allLaunches.map(launchDetails=> 
