@@ -2,8 +2,9 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Header from '../components/Header';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import querystring from 'querystring';
+import RocketLaunchDetails from "../components/RocketLaunchDetails";
+import FilterDetails from "../components/FilterDetails";
 
 export default function Home() {
 
@@ -13,45 +14,31 @@ export default function Home() {
   const [launch_year,setYear] = useState(0);
   const [launch_success,setLaunchSuccess] = useState(undefined);
   const [land_success,setLandSuccess] = useState(undefined);
-  const [allLaunchesDataList,setAllLaunchesDataList] = useState([]);
-  
+  // const allYears = new Array(16).fill(0).map((_, index) => 2006 + index);
+
+
   async function fetchLaunches(API_BASE_URL_param)
   {
-    console.log("--fetchLaunches");
-
     const response = await fetch(API_BASE_URL_param);
     const allLaunchesData = await response.json();
-     setAllLaunches(allLaunchesData);
-    // setAllLaunchesDataList(allLaunchesData);
+    setAllLaunches(allLaunchesData);
   }
 
   useEffect(() => {
-    console.log("--useEffect");
-    fetchLaunches(API_BASE_URL);
-  },[]);
+    const requiredURL =  (launch_year ||launch_success ||land_success ) ? API_BASE_URL +'&'+querystring.stringify({land_success,launch_success,launch_year}): API_BASE_URL;         
+    fetchLaunches(requiredURL);
+  },[launch_year,launch_success,land_success]);
 
-   function filterYear(value)
-  {
-     setYear(value);
-    // let launchedOnParticularYear = [];
-    // allLaunchesDataList.map(launch => {
-    //   if(launch.launch_year == value)
-    //   {
-    //     launchedOnParticularYear.push(launch);
-    //   }      
-    // })
-    // setAllLaunches(launchedOnParticularYear);
-
-  }
   
-  async function setFilters(filter,value)
-  {
-    if(filter == "year")
+   function setFilters(filter,value)
+   {
+    switch(filter)
     {
-      launch_year == value ?  setYear(undefined) :  setYear(value);
-      await fetchLaunches(API_BASE_URL +'&'+querystring.stringify({land_success,launch_success,launch_year}));
+      case 'launch_year': launch_year == value ?  setYear(0) :  setYear(value);break;
+      case 'launch_success':  value == "true" ? setLaunchSuccess(true) : setLaunchSuccess(undefined);break;
+      case 'land_success' :  value == "true" ? setLandSuccess(true) : setLandSuccess(undefined);break;
     }
-  }
+   }
   
   return (
     <div>
@@ -61,48 +48,18 @@ export default function Home() {
       </Head>
       <Header />
       <div className={styles.wholePageLayout}>
-      <div>
-        <div>Filters</div>
-        <div><input type="text" name="getYear" id="getYear" className={styles.getYear}/></div>
-        <div><button onClick={(e)=>setFilters("year",e.target.value)} value="2006">2006</button></div>
-      </div>
-      <div className={styles.cards}>
-       {allLaunches.map((launch)=> 
+      <FilterDetails setFilters={setFilters}/>
+  
+    <div className={styles.cards}>
+     {allLaunches.map(launchDetails=> 
       {
-        return (<div className={styles.card} key={launch.flight_number}>
-      <div className={styles.image}>
-      <img
-        src={launch.links.mission_patch_small}
-        alt="Picture of the Rocket"
-        />
-      </div>
-      <div className={styles.flightNameAndFlightNumber}>
-        {launch.mission_name} #{launch.flight_number}
-      </div>
-      <div>
-      Mission ids:{' '}
-      <ul>
-        {' '}
-        <li>{launch.mission_id}</li>
-      </ul>
-      </div>
-      <div>
-        Launch Year:{launch.launch_year}
-      </div>
-      <div>
-        Successful Launch:{launch.launch_success?"true":"false"}
-      </div>
-      <div>
-        Successful Landing:{launch.launch_success?"true":"false"}
-      </div>
-      </div>
-        )
-      }    
-      )
-      }
-    
+        return (
+      <RocketLaunchDetails launchDetails={launchDetails} />)
+        })}
     </div>
+
     </div>
+    <div className={styles.developer}><b>Developed by</b>:Shruti</div>
     </div>
      
 

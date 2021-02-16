@@ -4,19 +4,19 @@
   display:flex;
   flex-direction:row;
   flex-wrap:wrap;
+  justify-content: space-evenly;
 }
-.card{
+/* .card{
   display:flex;
   flex-direction:column;
   width: 18rem;
   padding: 1rem;
   margin-bottom: 15px;
   background-color: white;
-  margin: 5px;
   margin-left: 10px;
-}
+} */
 
-.image{
+/* .image{
   margin: auto;
   background-color: #F2F2F2;
 }
@@ -29,13 +29,83 @@ flex-direction: row;
 margin: 1rem 0rem;
 color: #63659f;
 font-weight: 700;
-}
+} */
 
 .wholePageLayout
 {
   display: flex;
+    /* justify-content: space-evenly; */
+    width: 100%;
 }
-.getYear{
-  
+.filters{
+  min-width: 19rem;
+  background-color: white;
+  margin: 0rem 1rem;
+  margin-bottom: 1rem;
+  max-width: 19rem;
 }
 
+
+
+.years{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.launchAndLandFilter{
+  display:flex;
+  justify-content: space-between;
+  padding: 1rem;
+  margin: auto;
+}
+
+.filtersHeader
+{
+  padding: 0.5rem;
+}
+
+.filterHeading
+{
+  margin: auto;
+  text-align: center;
+  border-bottom: 3px solid #F2F2F2;
+  width: 8.5rem;
+}
+
+.filters button {
+  background-color: #9ae39a;
+  margin: 5px;
+  padding: 0.8rem 2.09rem;
+  border-radius: .25rem;
+  border: none;
+}
+
+.filters button::selection
+{
+  background-color: #9ae39a;
+
+}
+
+/* .cards p{
+  display:inline-block;
+  font-weight:bold;
+  margin: 0px;
+  padding: 0.2rem 0rem;
+}
+
+.cards span{
+  color:#63659f;
+} */
+
+.developer
+{
+  text-align: center;
+  margin: 1rem;
+}
+
+@media only screen and (max-width: 700px) {
+    .wholePageLayout{ flex-direction: column;margin:auto}
+    .cards {flex-direction: column;}
+}
