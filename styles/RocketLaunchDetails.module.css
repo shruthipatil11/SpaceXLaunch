@@ -25,6 +25,7 @@
   font-weight: 700;
   }
 
+  
   .card p{
     display:inline-block;
     font-weight:bold;
@@ -32,7 +33,7 @@
     padding: 0.2rem 0rem;
   }
   
-  .card span{
+  .card span,.card .missionIds{
     color:#63659f;
   }
   

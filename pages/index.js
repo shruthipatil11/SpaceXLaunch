@@ -11,32 +11,38 @@ export default function Home() {
   const API_BASE_URL = "https://api.spaceXdata.com/v3/launches?limit=100";
   
   const [allLaunches,setAllLaunches] = useState([]);
-  const [launch_year,setYear] = useState(0);
+  const [launch_year,setYear] = useState(undefined);
   const [launch_success,setLaunchSuccess] = useState(undefined);
   const [land_success,setLandSuccess] = useState(undefined);
+  const [loader,setLoader] = useState(false);
   // const allYears = new Array(16).fill(0).map((_, index) => 2006 + index);
 
 
   async function fetchLaunches(API_BASE_URL_param)
   {
+    setAllLaunches([]);
+    setLoader(true);
     const response = await fetch(API_BASE_URL_param);
     const allLaunchesData = await response.json();
+    setLoader(false);
     setAllLaunches(allLaunchesData);
   }
 
   useEffect(() => {
-    const requiredURL =  (launch_year ||launch_success ||land_success ) ? API_BASE_URL +'&'+querystring.stringify({land_success,launch_success,launch_year}): API_BASE_URL;         
+    const requiredURL =  (launch_year ||(launch_success != undefined) ||land_success != undefined ) ? API_BASE_URL +'&'+querystring.stringify({land_success,launch_success,launch_year}): API_BASE_URL;         
     fetchLaunches(requiredURL);
   },[launch_year,launch_success,land_success]);
 
   
    function setFilters(filter,value)
    {
+     console.log(value,launch_success);
+     const toBooleanOfFilterData = value == "true" ? true : false;
     switch(filter)
     {
-      case 'launch_year': launch_year == value ?  setYear(0) :  setYear(value);break;
-      case 'launch_success':  value == "true" ? setLaunchSuccess(true) : setLaunchSuccess(undefined);break;
-      case 'land_success' :  value == "true" ? setLandSuccess(true) : setLandSuccess(undefined);break;
+      case 'launch_year': launch_year == value ?  setYear(undefined) :  setYear(value);break;
+      case 'launch_success':  launch_success == toBooleanOfFilterData ? setLaunchSuccess(undefined) : toBooleanOfFilterData? setLaunchSuccess(true): setLaunchSuccess(false);break;
+      case 'land_success' :  land_success == toBooleanOfFilterData ? setLandSuccess(undefined) : toBooleanOfFilterData? setLandSuccess(true) :setLandSuccess(false);break;
     }
    }
   
@@ -51,11 +57,17 @@ export default function Home() {
       <FilterDetails launch_success={launch_success} land_success={land_success} launch_year = {launch_year} setFilters={setFilters}/>
   
     <div className={styles.cards}>
-     {allLaunches.map(launchDetails=> 
-      {
+
+      {loader ? <div className={styles.container}>
+       <div className={styles.loader}></div>
+      </div> : null} 
+
+  
+     {allLaunches.length>0 ? (allLaunches.map(launchDetails=> 
+      {       
         return (
       <RocketLaunchDetails launchDetails={launchDetails} />)
-        })}
+        })) : "Not Available"}
     </div>
 
     </div>

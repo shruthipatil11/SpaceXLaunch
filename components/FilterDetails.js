@@ -6,7 +6,9 @@ export default function FilterDetails({launch_success,land_success,launch_year,s
 {
 
     const allYears = new Array(16).fill(0).map((_, index) => 2006 + index);
-    console.log("--year",launch_year);
+    console.log("--launch_success",launch_success);
+    const launchSuccess = typeof launch_success == "undefined"? null:launch_success;
+    const landSuccess = typeof land_success == "undefined"? null:land_success;
   return (
     <div className={styles.filters}>
     <div><h4 className={styles.filtersHeader}>Filters</h4></div>
@@ -19,13 +21,16 @@ export default function FilterDetails({launch_success,land_success,launch_year,s
     </div>
     <div className={styles.filterHeading}>Successful Launch</div>
     <div className={styles.launchAndLandFilter}>
-    <div><button key="1" className={launch_success? styles.btnSelected : styles.btnUnselected} onClick={(e)=>setFilters("launch_success",e.target.value)} value="true">True</button></div>
-    <div><button key="2" className={launch_success == undefined ? styles.btnSelected : styles.btnUnselected} onClick={(e)=>setFilters("launch_success",e.target.value)} value="false">False</button></div>
+    {/* <div><button key="1" className={launch_success? styles.btnSelected : styles.btnUnselected} onClick={(e)=>setFilters("launch_success",e.target.value)} value="true">True</button></div>
+    <div><button key="2" className={launch_success == undefined ? styles.btnSelected : styles.btnUnselected} onClick={(e)=>setFilters("launch_success",e.target.value)} value="false">False</button></div> */}
+
+    <div><button key="1"  className={(launchSuccess)? styles.btnSelected : styles.btnUnselected} onClick={(e)=>setFilters("launch_success",e.target.value)} value="true">True</button></div>
+    <div><button key="2"  className={(!launch_success && launch_success != null) ? styles.btnSelected : styles.btnUnselected} onClick={(e)=>setFilters("launch_success",e.target.value)} value="false">False</button></div>
     </div>
     <div className={styles.filterHeading}>Successful Landing</div>
     <div className={styles.launchAndLandFilter}>
-    <div><button className={land_success ? styles.btnSelected : styles.btnUnselected} onClick={(e)=>setFilters("land_success",e.target.value)} value="true">True</button></div>
-    <div><button className={land_success ? styles.btnUnselected : styles.btnSelected} onClick={(e)=>setFilters("land_success",e.target.value)} value="false">False</button></div>
+    <div><button  key ="3"  className={(land_success)? styles.btnSelected : styles.btnUnselected} onClick={(e)=>setFilters("land_success",e.target.value)} value="true">True</button></div>
+    <div><button  key="4"  className={(!land_success && land_success != null) ? styles.btnSelected : styles.btnUnselected} onClick={(e)=>setFilters("land_success",e.target.value)} value="false">False</button></div>
     </div>
   </div>
   );

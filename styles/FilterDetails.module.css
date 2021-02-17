@@ -4,7 +4,13 @@
     margin: 0rem 1rem;
     margin-bottom: 1rem;
     max-width: 19rem;
-  }
+    max-height: 48rem;
+    box-shadow: 0 1px 4px 0 rgb(32 32 32 / 10%);
+    border-radius: 4px;
+}
+
+
+  
 
   .years{
     display: flex;
@@ -34,25 +40,25 @@
   }
   
   .filters button {
-    background-color: #9ae39a;
+    background-color: #c5e09b;
     margin: 5px;
-    padding: 0.8rem 2.09rem;
+    padding: 0.5rem 1.8rem;
     border-radius: .25rem;
     border: none;
   }
   
   .filters .btnUnselected
   {
-    background-color: #9ae39a;
+    background-color: #c5e09b;
     outline:none;
   
   }
 
   .filters .btnSelected
   {
-    background-color: #0d720d;
+    background-color: #79ac28;
     outline:none;
- 
+    font-weight: bold;
   }
 
   @media only screen and (max-width: 700px) {
