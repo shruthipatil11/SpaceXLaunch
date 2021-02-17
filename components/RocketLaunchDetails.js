@@ -29,7 +29,7 @@ return (
       <p>Mission ids:</p>{' '}
       {mission_id.length>0 ? (<ul>
           {mission_id.map(id => <li key={id}><span className={styles.missionId}>{mission_id}</span></li>)}         
-      </ul>):null}
+      </ul>):"Not Available"}
       </div>
       <div>
       <p>Launch Year:</p><span>{launch_year}</span>

@@ -36,7 +36,6 @@ export default function Home() {
   
    function setFilters(filter,value)
    {
-     console.log(value,launch_success);
      const toBooleanOfFilterData = value == "true" ? true : false;
     switch(filter)
     {
@@ -67,7 +66,7 @@ export default function Home() {
       {       
         return (
       <RocketLaunchDetails launchDetails={launchDetails} />)
-        })) : "Not Available"}
+        })) :null}
     </div>
 
     </div>
