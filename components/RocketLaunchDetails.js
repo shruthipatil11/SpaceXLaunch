@@ -28,7 +28,7 @@ return (
       <div>
       <p>Mission ids:</p>{' '}
       {mission_id.length>0 ? (<ul>
-          {mission_id.map(id => <li key={id}><span className={styles.missionIds}>{mission_id}</span></li>)}         
+          {mission_id.map(id => <li key={id}><span className={styles.missionId}>{mission_id}</span></li>)}         
       </ul>):null}
       </div>
       <div>
