@@ -108,19 +108,20 @@ font-weight: 700;
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid #3498db;
+  border-top: 16px solid #c5e09b;
   width: 120px;
   height: 120px;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
   position:relative;
-  top:30vh;
+  /* top:10vh; */
+  
 }
 
 .container {
+  left:60%;
+  top:50%;
   position: absolute;
-  top: 50%;
-  left: 50%;
   -moz-transform: translateX(-50%) translateY(-50%);
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
