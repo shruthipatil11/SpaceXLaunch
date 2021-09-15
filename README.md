@@ -7,7 +7,7 @@ Application can be accessed on 'http://localhost:3000' when it is run in local u
 
 ## Deployed on Vercel
 
-The app is developed on Vercel and URL is 'https://space-xlaunch.vercel.app/'. 
+The app is hosted on Vercel and URL is 'https://space-xlaunch.vercel.app/'. 
 
 ## Github link
 https://github.com/shruthipatil11/SpaceXLaunch
